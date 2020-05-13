@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+//using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Server.IISIntegration;
+
 
 namespace TestApp
 {
@@ -28,6 +31,9 @@ namespace TestApp
 			{
 				configuration.RootPath = "ClientApp/build";
 			});
+
+			services.AddAuthentication(IISDefaults.AuthenticationScheme);
+
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,6 +55,8 @@ namespace TestApp
 			app.UseSpaStaticFiles();
 
 			app.UseRouting();
+
+			app.UseAuthorization();  // Enable Windows authentication.
 
 			app.UseEndpoints(endpoints =>
 			{
